@@ -39,10 +39,25 @@
   <svg aria-hidden="true" class="svg">
     <use href="#icon-demo" fill="red" />
   </svg>
+
+  <!-- Icon.vue 集成 -->
+
+  <div>
+    <icon type="iconify" icon="mdi:user" class="size-8 text-primary" />
+    <icon type="uno" icon="i-mdi:user" class="size-8 text-primary" />
+    <icon type="svg" icon="demo" class="text-primary size-8!" />
+    <icon
+      type="iconfont"
+      font-url="//at.alicdn.com/t/c/font_3457715_h47rhjpli3n.css"
+      icon="mobile-alt"
+      class="text-primary text-2xl!"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import Icon from '@/components/icon/index.vue'
 
 import { useDemoStore } from '@/stores/modules/demo'
 
