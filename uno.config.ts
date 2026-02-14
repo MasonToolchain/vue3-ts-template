@@ -1,4 +1,4 @@
-import { defineConfig, presetWind4, transformerDirectives, transformerVariantGroup } from 'unocss'
+import { defineConfig, presetWind4, transformerDirectives, transformerVariantGroup, presetIcons } from 'unocss'
 
 export default defineConfig({
   presets: [
@@ -6,6 +6,13 @@ export default defineConfig({
       // 使用了 Tailwind 4 作为预设，可以通过配置 preflights: { reset: true }来开启样式重置，故这里无需安装其他依赖了。
       preflights: { reset: true },
     }),
+    presetIcons({
+      prefix: 'i-',
+      extraProperties: {
+        display: 'inline-block',
+        'vertical-align': 'middle',
+      }
+    })
   ],
 
   transformers: [
