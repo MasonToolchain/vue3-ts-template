@@ -34,6 +34,11 @@
     <!-- Twemoji of laugh, turns to tear on hovering -->
     <div class="i-twemoji-grinning-face-with-smiling-eyes hover:i-twemoji-face-with-tears-of-joy" />
   </div>
+
+  <!-- 本地 SVG -->
+  <svg aria-hidden="true" class="svg">
+    <use href="#icon-demo" fill="red" />
+  </svg>
 </template>
 
 <script setup lang="ts">
