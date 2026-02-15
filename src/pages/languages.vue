@@ -15,6 +15,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { loadLanguage } from '@/i18n'
 
 const { t, locale } = useI18n()
 console.log(t('common.welcome', { name: '一勺' }))
@@ -28,6 +29,7 @@ const languages = [
 ]
 
 const onChangeLanguage = async (lang: string) => {
+  await loadLanguage(lang)
   locale.value = lang
 }
 </script>
