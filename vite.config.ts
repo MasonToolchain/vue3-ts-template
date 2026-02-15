@@ -35,7 +35,8 @@ export default defineConfig({
         /\.vue\?vue/, // .vue
         /\.md$/, // .md
       ],
-      imports: ['vue', VueRouterAutoImports, 'pinia'],
+      // 如果有其他要自动导入的库，只需要在imports数组中追加该库就行。
+      imports: ['vue', VueRouterAutoImports, 'pinia', '@vueuse/core'],
     })
   ],
   resolve: {
