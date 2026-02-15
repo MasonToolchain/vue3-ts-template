@@ -15,6 +15,7 @@ import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 import path from 'node:path'
 import { viteMockServe } from 'vite-plugin-mock'
 import { compression } from 'vite-plugin-compression2'
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -97,6 +98,17 @@ export default defineConfig(({ mode }) => {
         threshold: 10240, // 压缩阈值，超过 10kb 才压缩
         deleteOriginalAssets: false, // 不删除原始文件
       }),
+      ViteImageOptimizer({
+        png: {
+          quality: 80,
+        },
+        jpeg: {
+          quality: 80,
+        },
+        webp: {
+          quality: 80,
+        },
+      })
     ],
     resolve: {
       alias: {
