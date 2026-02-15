@@ -56,10 +56,10 @@
 </template>
   
 <script setup lang="ts">
+import { Env } from '@/utils/env'
 import { useDemoStore } from '@/stores/modules/demo'
 
 const demoStore = useDemoStore()
-
 const { counter } = storeToRefs(demoStore)
 
 const toggleTheme = () => {
@@ -67,6 +67,13 @@ const toggleTheme = () => {
   const currentTheme = html.getAttribute('data-theme')
   html.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark')
 }
+
+console.log('VITE_APP_NAME: ', Env.get('VITE_APP_NAME'))
+console.log('VITE_NUMBER_DEMO: ', Env.getNumber('VITE_NUMBER_DEMO'))
+console.log('VITE_BOOLEAN_DEMO: ', Env.getBoolean('VITE_BOOLEAN_DEMO'))
+console.log('isDev', Env.isDev)
+console.log('isUat', Env.isUat)
+console.log('isProd', Env.isProd)
 </script>
   
   <style scoped lang="scss">
