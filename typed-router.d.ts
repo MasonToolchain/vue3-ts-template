@@ -37,6 +37,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/http-demo': RouteRecordInfo<
+      '/http-demo',
+      '/http-demo',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/languages': RouteRecordInfo<
       '/languages',
       '/languages',
@@ -73,6 +80,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/demo.vue': {
       routes:
         | '/demo'
+      views:
+        | never
+    }
+    'src/pages/http-demo.vue': {
+      routes:
+        | '/http-demo'
       views:
         | never
     }
