@@ -16,6 +16,7 @@ import path from 'node:path'
 import { viteMockServe } from 'vite-plugin-mock'
 import { compression } from 'vite-plugin-compression2'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
+import legacy from '@vitejs/plugin-legacy'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -125,7 +126,10 @@ export default defineConfig(({ mode }) => {
         webp: {
           quality: 80,
         },
-      })
+      }),
+      legacy({
+        targets: ['defaults', 'not IE 11'],
+      }),
     ],
     resolve: {
       alias: {
