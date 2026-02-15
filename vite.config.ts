@@ -26,6 +26,11 @@ export default defineConfig(({ mode }) => {
   const isProd = mode === 'prod'
 
   return {
+    // 预构建配置
+    optimizeDeps: {
+      include: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
+    },
+    // 构建配置
     build: {
       minify: 'terser',
       sourcemap: !isProd,
