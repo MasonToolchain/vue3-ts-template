@@ -14,6 +14,7 @@ import Components from 'unplugin-vue-components/vite'
 import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 import path from 'node:path'
 import { viteMockServe } from 'vite-plugin-mock'
+import { compression } from 'vite-plugin-compression2'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -90,7 +91,12 @@ export default defineConfig(({ mode }) => {
       viteMockServe({
         mockPath: './mock',
         enable: true
-      })
+      }),
+      compression({
+        algorithms: ['gzip'],
+        threshold: 10240, // 压缩阈值，超过 10kb 才压缩
+        deleteOriginalAssets: false, // 不删除原始文件
+      }),
     ],
     resolve: {
       alias: {
