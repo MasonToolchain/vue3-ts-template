@@ -36,6 +36,7 @@ export default defineConfig(({ mode }) => {
       assetsDir: 'assets',
       assetsInlineLimit: 4096,
       reportCompressedSize: true,
+      cssCodeSplit: true,
       minify: 'terser',
       sourcemap: !isProd,
       terserOptions: isProd ? {
@@ -49,7 +50,7 @@ export default defineConfig(({ mode }) => {
         // 代码混淆配置
         mangle: {
           // 混淆顶层变量名
-          toplever: true,
+          toplevel: true,
           // 混淆 eval 中的变量
           eval: true,
         },
