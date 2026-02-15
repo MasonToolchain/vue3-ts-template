@@ -22,3 +22,18 @@ export interface PageData<T> {
     list: T[]
     total: number
 }
+
+
+/**
+ * HTTP请求客户端配置
+ */
+export interface HttpClientConfig {
+    // 请求基础路径
+    baseURL?: string
+    // 超时时间
+    timeout?: number
+    // 公共请求头
+    headers?: Record<string, string>
+
+    // 后期其他配置可以继续拓展
+}
