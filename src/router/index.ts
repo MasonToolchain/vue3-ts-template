@@ -1,19 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { App } from 'vue'
+import { routes } from 'vue-router/auto-routes'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      redirect: '/demo',
-    },
-    {
-      path: '/demo',
-      name: 'demo',
-      component: () => import('@/views/demo.vue'),
-    },
-  ],
+  routes
 })
 
 export const installRouter = (app: App) => {

@@ -54,8 +54,8 @@
     />
   </div>
 </template>
-
-<script setup lang="ts">
+  
+  <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import Icon from '@/components/icon/index.vue'
 
@@ -71,8 +71,8 @@ const toggleTheme = () => {
   html.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark')
 }
 </script>
-
-<style scoped lang="scss">
+  
+  <style scoped lang="scss">
 .demo {
   @apply text-xl text-primary bg-success-light-7;
 }
