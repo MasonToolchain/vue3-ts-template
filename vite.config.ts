@@ -32,6 +32,10 @@ export default defineConfig(({ mode }) => {
     },
     // 构建配置
     build: {
+      outDir: 'dist',
+      assetsDir: 'assets',
+      assetsInlineLimit: 4096,
+      reportCompressedSize: true,
       minify: 'terser',
       sourcemap: !isProd,
       terserOptions: isProd ? {
