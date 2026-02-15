@@ -16,7 +16,8 @@ import path from 'node:path'
 import { viteMockServe } from 'vite-plugin-mock'
 import { compression } from 'vite-plugin-compression2'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
-import legacy from '@vitejs/plugin-legacy'
+import legacy from '@vitejs/plugin-legacy'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -66,7 +67,7 @@ export default defineConfig(({ mode }) => {
             vendor: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
           }
         }
-      }
+      },
     },
     plugins: [
       VueRouter({}),
@@ -130,6 +131,9 @@ export default defineConfig(({ mode }) => {
       legacy({
         targets: ['defaults', 'not IE 11'],
       }),
+      visualizer({
+        filename: 'stats.html',
+      })
     ],
     resolve: {
       alias: {
