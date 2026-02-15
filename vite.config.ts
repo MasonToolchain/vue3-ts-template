@@ -10,6 +10,7 @@ import VueRouter from 'unplugin-vue-router/vite'
 import Layouts from 'vite-plugin-vue-layouts'
 import AutoImport from 'unplugin-auto-import/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
+import Components from 'unplugin-vue-components/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -37,6 +38,10 @@ export default defineConfig({
       ],
       // 如果有其他要自动导入的库，只需要在imports数组中追加该库就行。
       imports: ['vue', VueRouterAutoImports, 'pinia', '@vueuse/core'],
+    }),
+    Components({
+      deep: true,
+      directoryAsNamespace: false,
     })
   ],
   resolve: {

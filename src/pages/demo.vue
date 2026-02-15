@@ -56,8 +56,6 @@
 </template>
   
 <script setup lang="ts">
-import Icon from '@/components/icon/index.vue'
-
 import { useDemoStore } from '@/stores/modules/demo'
 
 const demoStore = useDemoStore()
