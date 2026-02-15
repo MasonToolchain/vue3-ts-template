@@ -7,7 +7,9 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import UnoCSS from 'unocss/vite'
 import VueRouter from 'unplugin-vue-router/vite'
-import Layouts from 'vite-plugin-vue-layouts'
+import Layouts from 'vite-plugin-vue-layouts'
+import AutoImport from 'unplugin-auto-import/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -23,9 +25,18 @@ export default defineConfig({
       symbolId: 'icon-[dir]-[name]',
     }), 
     Layouts({
-      layoutsDirs: 'src/layouts',
-      defaultLayout: 'default',
+      layoutsDirs: 'src/layouts',
+      defaultLayout: 'default',
     }),
+    AutoImport({
+      include: [
+        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+        /\.vue$/,
+        /\.vue\?vue/, // .vue
+        /\.md$/, // .md
+      ],
+      imports: ['vue', VueRouterAutoImports, 'pinia'],
+    })
   ],
   resolve: {
     alias: {

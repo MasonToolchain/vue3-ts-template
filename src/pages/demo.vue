@@ -55,8 +55,7 @@
   </div>
 </template>
   
-  <script setup lang="ts">
-import { storeToRefs } from 'pinia'
+<script setup lang="ts">
 import Icon from '@/components/icon/index.vue'
 
 import { useDemoStore } from '@/stores/modules/demo'
