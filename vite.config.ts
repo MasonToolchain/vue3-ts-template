@@ -11,8 +11,9 @@ import Layouts from 'vite-plugin-vue-layouts'
 import AutoImport from 'unplugin-auto-import/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import Components from 'unplugin-vue-components/vite'
-import vueI18n from '@intlify/unplugin-vue-i18n/vite'
-import path from 'node:path'
+import vueI18n from '@intlify/unplugin-vue-i18n/vite'
+import path from 'node:path'
+import { viteMockServe } from 'vite-plugin-mock'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -58,6 +59,10 @@ export default defineConfig(({ mode }) => {
         compositionOnly: true,
         // 完整安装
         fullInstall: true,
+      }),
+      viteMockServe({
+        mockPath: './mock',
+        enable: true
       })
     ],
     resolve: {
