@@ -1,6 +1,7 @@
 import { Env } from "@/utils/env"
 import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios'
 import type { HttpClientConfig } from "./types"
+import { Interceptors } from "./interceptors"
 
 // HTTP请求客户端的默认配置
 const defaultConfig: HttpClientConfig = {
@@ -18,6 +19,7 @@ const defaultConfig: HttpClientConfig = {
 export class HttpClient {
     protected instance: AxiosInstance
     protected config: HttpClientConfig
+    private interceptors: Interceptors
 
     /**
      * 构造函数
@@ -25,7 +27,18 @@ export class HttpClient {
      */
     constructor(config: HttpClientConfig = {}) {
         this.config = { ...defaultConfig, ...config }
+        // 实例化拦截器对象
+        this.interceptors = new Interceptors(this.config.interceptor ?? {})
         this.instance = this.createInstance()
+        // 应用拦截器
+        this.setInterceptors()
+    }
+
+    /**
+     * 设置拦截器
+     */
+    private setInterceptors(): void {
+        this.interceptors.applyInterceptors(this.instance)
     }
 
     /**
