@@ -20,7 +20,34 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_')
   console.log(env)
 
+  // 如果有其他环境场景 可以修改此处 当前只针对生产环境
+  const isProd = mode === 'prod'
+
   return {
+    build: {
+      minify: 'terser',
+      sourcemap: !isProd,
+      terserOptions: isProd ? {
+        // 代码压缩配置
+        compress: {
+          // 移除 console.log
+          drop_console: true,
+          // 移除 debugger
+          drop_debugger: true,
+        },
+        // 代码混淆配置
+        mangle: {
+          // 混淆顶层变量名
+          toplever: true,
+          // 混淆 eval 中的变量
+          eval: true,
+        },
+        // 输出配置
+        format: {
+          comments: false,
+        }
+      } : {}
+    },
     plugins: [
       VueRouter({}),
       // ⚠️ Vue must be placed after VueRouter()
