@@ -53,6 +53,11 @@
       class="text-primary text-2xl!"
     />
   </div>
+
+  <!-- 国际化测试 -->
+  <h1>国际化路由懒加载测试</h1>
+  <div class="text-2xl text-danger">{{ $t('demo.title') }}</div>
+  <div>{{ $t('demo.info') }}</div>
 </template>
   
 <script setup lang="ts">
@@ -61,6 +66,12 @@ import { useDemoStore } from '@/stores/modules/demo'
 
 const demoStore = useDemoStore()
 const { counter } = storeToRefs(demoStore)
+
+definePage({
+  meta: {
+    locales: ['demo'],
+  },
+})
 
 const toggleTheme = () => {
   const html = document.documentElement
