@@ -58,7 +58,14 @@ export default defineConfig(({ mode }) => {
         format: {
           comments: false,
         }
-      } : {}
+      } : {},
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
+          }
+        }
+      }
     },
     plugins: [
       VueRouter({}),
