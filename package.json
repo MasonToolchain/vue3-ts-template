@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "preinstall": "node script/preinstall.js",
     "prepare": "lefthook install",
     "dev:dev": "vite --mode dev",
     "dev:uat": "vite --mode uat",
@@ -71,5 +72,10 @@
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "lefthook"
+    ]
   }
 }
