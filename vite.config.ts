@@ -18,6 +18,7 @@ import { compression } from 'vite-plugin-compression2'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 import legacy from '@vitejs/plugin-legacy'
 import { visualizer } from 'rollup-plugin-visualizer'
+import { CodeInspectorPlugin } from 'code-inspector-plugin'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -135,6 +136,12 @@ export default defineConfig(({ mode }) => {
       }),
       visualizer({
         filename: 'stats.html',
+      }),
+      CodeInspectorPlugin({
+        bundler: 'vite',
+        // 列表： https://github.com/zh-lx/launch-ide
+        // VSCode: code; Trae: trae; WebStorm: webstorm; Cursor: cursor; Widsurf: widsurf
+        editor: 'code',
       }),
     ],
     resolve: {
