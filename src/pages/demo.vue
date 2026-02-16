@@ -59,7 +59,7 @@
   <div class="text-2xl text-danger">{{ $t('demo.title') }}</div>
   <div>{{ $t('demo.info') }}</div>
 </template>
-  
+
 <script setup lang="ts">
 import { Env } from '@/utils/env'
 import { useDemoStore } from '@/stores/modules/demo'
@@ -86,8 +86,8 @@ console.log('isDev', Env.isDev)
 console.log('isUat', Env.isUat)
 console.log('isProd', Env.isProd)
 </script>
-  
-  <style scoped lang="scss">
+
+<style scoped lang="scss">
 .demo {
   @apply text-xl text-primary bg-success-light-7;
 }

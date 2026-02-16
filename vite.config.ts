@@ -10,7 +10,7 @@ import VueRouter from 'unplugin-vue-router/vite'
 import Layouts from 'vite-plugin-vue-layouts'
 import AutoImport from 'unplugin-auto-import/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
-import Components from 'unplugin-vue-components/vite'
+import Components from 'unplugin-vue-components/vite'
 import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 import path from 'node:path'
 import { viteMockServe } from 'vite-plugin-mock'
@@ -38,35 +38,37 @@ export default defineConfig(({ mode }) => {
       assetsDir: 'assets',
       assetsInlineLimit: 4096,
       reportCompressedSize: true,
-      cssCodeSplit: true,
+      cssCodeSplit: true,
       minify: 'terser',
       sourcemap: !isProd,
-      terserOptions: isProd ? {
-        // 代码压缩配置
-        compress: {
-          // 移除 console.log
-          drop_console: true,
-          // 移除 debugger
-          drop_debugger: true,
-        },
-        // 代码混淆配置
-        mangle: {
-          // 混淆顶层变量名
-          toplevel: true,
-          // 混淆 eval 中的变量
-          eval: true,
-        },
-        // 输出配置
-        format: {
-          comments: false,
-        }
-      } : {},
+      terserOptions: isProd
+        ? {
+            // 代码压缩配置
+            compress: {
+              // 移除 console.log
+              drop_console: true,
+              // 移除 debugger
+              drop_debugger: true,
+            },
+            // 代码混淆配置
+            mangle: {
+              // 混淆顶层变量名
+              toplevel: true,
+              // 混淆 eval 中的变量
+              eval: true,
+            },
+            // 输出配置
+            format: {
+              comments: false,
+            },
+          }
+        : {},
       rollupOptions: {
         output: {
           manualChunks: {
             vendor: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
-          }
-        }
+          },
+        },
       },
     },
     plugins: [
@@ -110,7 +112,7 @@ export default defineConfig(({ mode }) => {
       }),
       viteMockServe({
         mockPath: './mock',
-        enable: true
+        enable: true,
       }),
       compression({
         algorithms: ['gzip'],
@@ -133,7 +135,7 @@ export default defineConfig(({ mode }) => {
       }),
       visualizer({
         filename: 'stats.html',
-      })
+      }),
     ],
     resolve: {
       alias: {

@@ -58,6 +58,36 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/use-request-demo': RouteRecordInfo<
+      '/use-request-demo',
+      '/use-request-demo',
+      Record<never, never>,
+      Record<never, never>,
+      | '/use-request-demo/basic'
+      | '/use-request-demo/effect'
+      | '/use-request-demo/run'
+    >,
+    '/use-request-demo/basic': RouteRecordInfo<
+      '/use-request-demo/basic',
+      '/use-request-demo/basic',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/use-request-demo/effect': RouteRecordInfo<
+      '/use-request-demo/effect',
+      '/use-request-demo/effect',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/use-request-demo/run': RouteRecordInfo<
+      '/use-request-demo/run',
+      '/use-request-demo/run',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
   }
 
   /**
@@ -98,6 +128,33 @@ declare module 'vue-router/auto-routes' {
     'src/pages/layouts.vue': {
       routes:
         | '/layouts'
+      views:
+        | never
+    }
+    'src/pages/use-request-demo.vue': {
+      routes:
+        | '/use-request-demo'
+        | '/use-request-demo/basic'
+        | '/use-request-demo/effect'
+        | '/use-request-demo/run'
+      views:
+        | 'default'
+    }
+    'src/pages/use-request-demo/basic.vue': {
+      routes:
+        | '/use-request-demo/basic'
+      views:
+        | never
+    }
+    'src/pages/use-request-demo/effect.vue': {
+      routes:
+        | '/use-request-demo/effect'
+      views:
+        | never
+    }
+    'src/pages/use-request-demo/run.vue': {
+      routes:
+        | '/use-request-demo/run'
       views:
         | never
     }
