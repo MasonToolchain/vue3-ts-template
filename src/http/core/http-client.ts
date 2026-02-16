@@ -2,6 +2,8 @@ import { Env } from "@/utils/env"
 import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios'
 import type { HttpClientConfig } from "./types"
 import { Interceptors } from "./interceptors"
+import { PluginManager } from "./plugin-manager"
+import { RequestCanceler } from "./request-canceler"
 
 // HTTP请求客户端的默认配置
 const defaultConfig: HttpClientConfig = {
@@ -9,7 +11,8 @@ const defaultConfig: HttpClientConfig = {
     timeout: 3000,
     headers: {
         'Content-Type': 'application/json;charset=utf-8'
-    }
+    },
+    enableCancel: true
 }
 
 /**
@@ -20,6 +23,8 @@ export class HttpClient {
     protected instance: AxiosInstance
     protected config: HttpClientConfig
     private interceptors: Interceptors
+    private pluginManager: PluginManager
+    private requestCanceler: RequestCanceler
 
     /**
      * 构造函数
@@ -30,6 +35,12 @@ export class HttpClient {
         // 实例化拦截器对象
         this.interceptors = new Interceptors(this.config.interceptor ?? {})
         this.instance = this.createInstance()
+        // 实例化插件管理器
+        this.pluginManager = new PluginManager()
+        // 实例化请求取消器
+        this.requestCanceler = new RequestCanceler()
+        // 应用插件
+        this.registerPlugins()
         // 应用拦截器
         this.setInterceptors()
     }
@@ -107,5 +118,32 @@ export class HttpClient {
      */
     public getInstance(): AxiosInstance {
         return this.instance
+    }
+
+    /**
+     * 注册插件
+     */
+    private registerPlugins(): void {
+        // 根据配置注册插件
+        if (this.config.enableCancel) {
+            this.pluginManager.register(this.requestCanceler)
+        }
+        // 应用所有插件
+        this.pluginManager.applyAll(this.instance)
+    }
+
+    /**
+     * 取消所有请求
+     */
+    public cancelAll(): void {
+        this.requestCanceler.clear()
+    }
+
+    /**
+     * 获取插件管理器
+     * 便于后续动态添加或移除插件
+     */
+    public getPluginManager(): PluginManager {
+        return this.pluginManager
     }
 }

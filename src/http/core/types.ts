@@ -52,6 +52,8 @@ export interface HttpClientConfig {
     headers?: Record<string, string>
     // 拦截器配置
     interceptor?: InterceptorConfig
+    // 是否开启请求取消
+    enableCancel?: boolean
     
     // 后期其他配置可以继续拓展
 }

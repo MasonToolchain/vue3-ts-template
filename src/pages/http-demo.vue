@@ -28,12 +28,16 @@
         </button>
       </div>
     </div>
+    <div class="mt-4">
+      <button @click="onTestCancelAllRequests">取消所有请求</button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { type Demo, type DemoListReq, demoService } from '@/services/demo-service'
+import { api } from '@/http'
 
 const loading = ref(false)
 const error = ref<Error | null>(null)
@@ -80,6 +84,20 @@ const onTitleClick = async (id: number) => {
 onMounted(() => {
   fetchData()
 })
+
+// 测试取消全部请求
+const onTestCancelAllRequests = async () => {
+  console.log('开始测试取消全部请求') // 发送多个请求
+
+  for (let i = 0; i < 3; i++) {
+    fetchData({ pageNum: i + 1 })
+  } // 1秒后取消所有请求
+
+  setTimeout(() => {
+    console.log('取消全部请求')
+    api.cancelAll()
+  }, 1000)
+}
 </script>
 
 <style scoped lang="scss">
