@@ -1,0 +1,20 @@
+version: 2
+
+pre-commit:
+  parallel: true
+  commands:
+    lint-staged:
+      glob: "*.{js,ts,vue,css,scss}"
+      run: pnpm exec lint-staged
+      stage: false
+      pass_files: false
+
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm commitlint --edit {1}
+
+install:
+  scripts:
+    enable-auto-install:
+      run: echo "✅ Lefthook hooks installed successfully! Ready to enforce code quality checks."

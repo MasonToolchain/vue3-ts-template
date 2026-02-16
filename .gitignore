@@ -28,6 +28,9 @@ coverage
 
 .eslintcache
 
+# Lefthook cache
+.lefthook-local/
+
 # Cypress
 /cypress/videos/
 /cypress/screenshots/
