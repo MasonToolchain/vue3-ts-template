@@ -5,6 +5,7 @@ import { Interceptors } from "./interceptors"
 import { PluginManager } from "./plugin-manager"
 import { RequestCanceler } from "./request-canceler"
 import { RequestDedup } from "./request-dedup"
+import { RequestRetry } from "./request-retry"
 
 // HTTP请求客户端的默认配置
 const defaultConfig: HttpClientConfig = {
@@ -14,7 +15,9 @@ const defaultConfig: HttpClientConfig = {
         'Content-Type': 'application/json;charset=utf-8'
     },
     enableCancel: true,
-    enableDedup: true
+    enableDedup: true,
+    enableRetry: true,
+    retryConfig: {}
 }
 
 /**
@@ -27,7 +30,8 @@ export class HttpClient {
     private interceptors: Interceptors
     private pluginManager: PluginManager
     private requestCanceler: RequestCanceler
-    private requestDedup: RequestDedup
+    private requestDedup: RequestDedup
+    private requestRetry: RequestRetry
 
     /**
      * 构造函数
@@ -44,6 +48,8 @@ export class HttpClient {
         this.requestCanceler = new RequestCanceler()
         // 实例化请求防重器
         this.requestDedup = new RequestDedup()
+        // 实例化请求重试器
+        this.requestRetry = new RequestRetry(this.config.retryConfig)
         // 应用插件
         this.registerPlugins()
         // 应用拦截器
@@ -135,6 +141,9 @@ export class HttpClient {
         }
         if (this.config.enableDedup) {
             this.pluginManager.register(this.requestDedup)
+        }
+        if (this.config.enableRetry) {
+            this.pluginManager.register(this.requestRetry)
         }
         // 应用所有插件
         this.pluginManager.applyAll(this.instance)

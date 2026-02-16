@@ -35,6 +35,9 @@
       <button ref="refreshBtnRef" @click="onRefreshBtnClick">刷新数据</button>
       <button @click="onTestDeduplication" class="ml-2">测试请求防重</button>
     </div>
+    <div class="mt-4">
+      <button @click="onTestRetry" class="ml-2">测试请求重试</button>
+    </div>
   </div>
 </template>
 
@@ -114,6 +117,16 @@ const onTestDeduplication = async () => {
   console.log('开始测试请求防重')
   for (let i = 0; i < 10; i++) {
     refreshBtnRef.value?.click()
+  }
+}
+
+const onTestRetry = async () => {
+  console.log('开始测试请求重试')
+  try {
+    const response = await demoService.getList({ pageNum: 1, pageSize: 10 })
+    console.log('请求成功，返回数据:', response)
+  } catch (error) {
+    console.error('请求失败:', error)
   }
 }
 </script>
