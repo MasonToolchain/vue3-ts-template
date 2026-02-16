@@ -31,6 +31,10 @@
     <div class="mt-4">
       <button @click="onTestCancelAllRequests">取消所有请求</button>
     </div>
+    <div class="mt-4">
+      <button ref="refreshBtnRef" @click="onRefreshBtnClick">刷新数据</button>
+      <button @click="onTestDeduplication" class="ml-2">测试请求防重</button>
+    </div>
   </div>
 </template>
 
@@ -97,6 +101,20 @@ const onTestCancelAllRequests = async () => {
     console.log('取消全部请求')
     api.cancelAll()
   }, 1000)
+}
+
+const refreshBtnRef = useTemplateRef('refreshBtnRef')
+
+const onRefreshBtnClick = () => {
+  console.log('点击刷新按钮')
+  fetchData({ pageNum: 1 })
+}
+
+const onTestDeduplication = async () => {
+  console.log('开始测试请求防重')
+  for (let i = 0; i < 10; i++) {
+    refreshBtnRef.value?.click()
+  }
 }
 </script>
 

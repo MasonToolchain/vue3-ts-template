@@ -4,6 +4,7 @@ import type { HttpClientConfig } from "./types"
 import { Interceptors } from "./interceptors"
 import { PluginManager } from "./plugin-manager"
 import { RequestCanceler } from "./request-canceler"
+import { RequestDedup } from "./request-dedup"
 
 // HTTP请求客户端的默认配置
 const defaultConfig: HttpClientConfig = {
@@ -12,7 +13,8 @@ const defaultConfig: HttpClientConfig = {
     headers: {
         'Content-Type': 'application/json;charset=utf-8'
     },
-    enableCancel: true
+    enableCancel: true,
+    enableDedup: true
 }
 
 /**
@@ -25,6 +27,7 @@ export class HttpClient {
     private interceptors: Interceptors
     private pluginManager: PluginManager
     private requestCanceler: RequestCanceler
+    private requestDedup: RequestDedup
 
     /**
      * 构造函数
@@ -39,6 +42,8 @@ export class HttpClient {
         this.pluginManager = new PluginManager()
         // 实例化请求取消器
         this.requestCanceler = new RequestCanceler()
+        // 实例化请求防重器
+        this.requestDedup = new RequestDedup()
         // 应用插件
         this.registerPlugins()
         // 应用拦截器
@@ -127,6 +132,9 @@ export class HttpClient {
         // 根据配置注册插件
         if (this.config.enableCancel) {
             this.pluginManager.register(this.requestCanceler)
+        }
+        if (this.config.enableDedup) {
+            this.pluginManager.register(this.requestDedup)
         }
         // 应用所有插件
         this.pluginManager.applyAll(this.instance)

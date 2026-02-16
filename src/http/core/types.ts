@@ -54,6 +54,8 @@ export interface HttpClientConfig {
     interceptor?: InterceptorConfig
     // 是否开启请求取消
     enableCancel?: boolean
+    // 是否开启请求防重
+    enableDedup?: boolean
     
     // 后期其他配置可以继续拓展
 }
