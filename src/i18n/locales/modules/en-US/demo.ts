@@ -1,4 +1,4 @@
 export default {
-    title:'Demo Page',
-    info: 'This is a demo page',
+  title: 'Demo Page',
+  info: 'This is a demo page',
 }

@@ -20,7 +20,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import { useRequest } from '@/hooks/use-request'
 import { demoService } from '@/services/demo-service'
 import type { Demo } from '@/services/demo-service'

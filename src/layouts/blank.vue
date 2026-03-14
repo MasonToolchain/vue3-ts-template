@@ -6,12 +6,11 @@
     <router-view></router-view>
   </div>
 </template>
-  
-  <script setup lang="ts"></script>
-  
-  <style scoped lang="scss">
+
+<script setup lang="ts"></script>
+
+<style scoped lang="scss">
 .item {
   @apply line-height-loose mr-3 text-gray-400 mb-5;
 }
 </style>
-  
