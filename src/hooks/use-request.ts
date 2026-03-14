@@ -1,87 +1,74 @@
-import type { AxiosRequestConfig } from 'axios'
 import { ref, shallowRef, watch } from 'vue'
 import type { Ref, WatchSource } from 'vue'
 
+type RequestFn<T, TArgs extends unknown[]> = (...args: TArgs) => Promise<T>
+
 export interface UseRequestOptions<T> {
-  // 是否在组件挂载时自动请求
+  // Whether to request automatically on component mount.
   auto?: boolean
-  // 依赖项，变化时重新请求
+  // Re-run request when deps change.
   deps?: WatchSource<unknown>[]
-  // 初始数据
+  // Initial data value.
   initialData?: T
-  // 请求前的回调
+  // Called before each request.
   onBefore?: () => void
-  // 请求成功的回调
+  // Called when request succeeds.
   onSuccess?: (data: T) => void
-  // 请求失败的回调
-  onError?: (error: unknown) => void
-  // 请求完成的回调（无论成功还是失败）
+  // Called when request fails.
+  onError?: (error: Error) => void
+  // Called after request completes.
   onFinally?: () => void
 }
 
-export interface UseRequestReturn<T> {
-  // 请求数据
+export interface UseRequestReturn<T, TArgs extends unknown[]> {
   data: Ref<T | undefined>
-  // 加载状态
   loading: Ref<boolean>
-  // 错误信息
-  error: Ref<unknown | null>
-  // 手动触发请求
-  run: (config?: AxiosRequestConfig) => Promise<T>
+  error: Ref<Error | null>
+  run: (...args: TArgs) => Promise<T>
 }
 
-export function useRequest<T>(
-  requestFn: (config?: AxiosRequestConfig) => Promise<T>,
+export function useRequest<T, TArgs extends unknown[] = []>(
+  requestFn: RequestFn<T, TArgs>,
   options: UseRequestOptions<T> = {},
-): UseRequestReturn<T> {
-  const {
-    auto = true,
-    deps = [],
-    initialData,
-    onBefore,
-    onSuccess,
-    onError,
-    onFinally,
-  } = options
+): UseRequestReturn<T, TArgs> {
+  const { auto = true, deps = [], initialData, onBefore, onSuccess, onError, onFinally } = options
 
   const data = shallowRef<T | undefined>(initialData)
   const loading = ref(false)
-  const error = ref<unknown | null>(null)
+  const error = ref<Error | null>(null)
 
-  // 执行请求
-  const executeRequest = async (config?: AxiosRequestConfig): Promise<T> => {
+  const executeRequest = async (...args: TArgs): Promise<T> => {
     try {
       onBefore?.()
       loading.value = true
       error.value = null
 
-      // 执行请求函数
-      const result = await requestFn(config)
+      const result = await requestFn(...args)
       data.value = result
       onSuccess?.(result)
       return result
     } catch (err) {
-      error.value = err
-      onError?.(err)
-      throw err
+      const normalizedError = err instanceof Error ? err : new Error(String(err))
+      error.value = normalizedError
+      onError?.(normalizedError)
+      throw normalizedError
     } finally {
       loading.value = false
       onFinally?.()
     }
   }
 
-  // 手动触发请求
-  const run = (config?: AxiosRequestConfig): Promise<T> => executeRequest(config)
+  const run = (...args: TArgs): Promise<T> => executeRequest(...args)
 
-  // 自动请求
-  if (auto) executeRequest()
+  if (auto) {
+    void executeRequest(...([] as unknown as TArgs))
+  }
 
-  // 依赖追踪
   if (deps.length > 0) {
     watch(
       deps,
       () => {
-        executeRequest()
+        void executeRequest(...([] as unknown as TArgs))
       },
       { deep: true },
     )

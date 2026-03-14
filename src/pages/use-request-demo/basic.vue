@@ -9,7 +9,7 @@
         </li>
       </ul>
     </div>
-    <button @click="run">刷新</button>
+    <button type="button" @click="run">刷新</button>
   </div>
 </template>
 

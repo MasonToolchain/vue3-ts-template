@@ -27,11 +27,8 @@ import type { Demo } from '@/services/demo-service'
 const demoId = ref(1)
 const demoIdRef = computed(() => demoId.value)
 
-const { data, loading, error } = useRequest<Demo>(
-  () => demoService.getDetail(Number(demoId.value)),
-  {
-    deps: [demoIdRef],
-    auto: true,
-  },
-)
+const { data, loading, error } = useRequest<Demo>(() => demoService.getDetail(demoId.value), {
+  deps: [demoIdRef],
+  auto: true,
+})
 </script>

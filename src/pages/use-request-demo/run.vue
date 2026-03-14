@@ -7,7 +7,7 @@
       {{ loading ? '创建中...' : '创建' }}
     </button>
 
-    <div v-if="error">错误: {{ (error as Error)?.message }}</div>
+    <div v-if="error">错误: {{ error.message }}</div>
 
     <div v-if="data">创建成功: {{ data.title }}</div>
   </div>
@@ -22,9 +22,12 @@ import type { Demo } from '@/services/demo-service'
 const title = ref('')
 const content = ref('')
 
-const { data, loading, error, run } = useRequest<Demo>((data) => demoService.create(data), {
-  auto: false, // 禁用自动请求
-})
+const { data, loading, error, run } = useRequest(
+  (payload: Partial<Demo>) => demoService.create(payload),
+  {
+    auto: false,
+  },
+)
 
 const handleCreate = async () => {
   await run({
@@ -32,7 +35,8 @@ const handleCreate = async () => {
     content: content.value,
     author: 'test',
     status: true,
-    createTime: new Date().getTime(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   })
 }
 </script>
