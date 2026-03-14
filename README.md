@@ -1,48 +1,47 @@
 # vue3-ts-template
 
-This template should help get you started developing with Vue 3 in Vite.
+一个开箱即用的 Vue 3 + TypeScript 初始模板，面向中后台与工程化项目启动场景。  
+目标是提供清晰、稳定、可扩展的基础结构，帮助你快速开始业务开发。
 
-## Recommended IDE Setup
+## 技术栈
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Vue 3
+- TypeScript
+- Vite
+- Vue Router
+- Pinia
+- ESLint
 
-## Recommended Browser Setup
+## 特性
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- 基于 TypeScript 的类型安全开发体验
+- 现代化构建与本地开发环境
+- 预置路由与状态管理能力
+- 统一代码规范，便于团队协作
+- 适合作为通用前端项目脚手架
 
-## Type Support for `.vue` Imports in TS
+## 快速开始
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+1. 安装依赖  
+   `pnpm install`
 
-## Customize configuration
+2. 启动开发环境  
+   `pnpm dev`
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+3. 构建生产版本  
+   `pnpm build`
 
-## Project Setup
+## 常用命令
 
-```sh
-pnpm install
-```
+- `pnpm dev` 启动开发服务器
+- `pnpm build` 构建生产版本
+- `pnpm preview` 本地预览构建结果
+- `pnpm lint` 代码检查
 
-### Compile and Hot-Reload for Development
+## 目录建议
 
-```sh
-pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+- `src/` 业务源码
+- `src/router/` 路由配置
+- `src/stores/` Pinia 状态管理
+- `src/components/` 通用组件
+- `public/` 静态资源
